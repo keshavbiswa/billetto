@@ -17,23 +17,99 @@
     <link rel="icon" href="/icon.svg" type="image/svg+xml">
     <link rel="apple-touch-icon" href="/icon.png">
 
-    <%# Includes all stylesheet files in app/assets/stylesheets %>
+    <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
     <%= stylesheet_link_tag :app, "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
-  <body>
-    <nav class="navbar">
-      <% if current_user.present? %>
-        <!-- Clerk UserButton -->
-        <div id="user-button"></div>
-      <% else %>
-        <!-- Clerk Sign up and Sign in links -->
-        <button onclick="Clerk.openSignIn()">Sign in</button>
-        <button onclick="Clerk.openSignUp()">Sign up</button>
-      <% end %>
+  <body class="bg-gray-100">
+    <nav class="bg-white shadow">
+      <div class="container mx-auto px-4 py-4 flex justify-between items-center">
+        <div class="text-xl font-bold text-gray-800">
+          <a href="<%= root_path %>">Billetto</a>
+        </div>
+
+        <div class="flex items-center space-x-4">
+          <% if current_user.present? %>
+            <div id="user-button"></div>
+            <button
+              id="logout-button"
+              class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
+              aria-label="Log out"
+            >
+              Log Out
+            </button>
+          <% else %>
+            <button
+              onclick="Clerk.openSignIn()"
+              class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
+              aria-label="Sign in"
+            >
+              Sign In
+            </button>
+            <button
+              onclick="Clerk.openSignUp()"
+              class="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition duration-300"
+              aria-label="Sign up"
+            >
+              Sign Up
+            </button>
+          <% end %>
+        </div>
+      </div>
     </nav>
+
     <%= yield %>
+
+
     <%= clerk_script_tag %>
+
+    <script>
+      function initializeClerk() {
+        Clerk.load().then(() => {
+          Clerk.mountUserButton('#user-button', {
+            appearance: {
+              elements: {
+                userButtonAvatarBox: {
+                  borderRadius: '9999px',
+                },
+                userButtonPopoverFooter: {
+                  display: 'none',
+                },
+              },
+            },
+          });
+
+          const logoutButton = document.getElementById('logout-button');
+          if (logoutButton) {
+            logoutButton.addEventListener('click', async () => {
+              console.log("HELLO");
+              try {
+                await Clerk.signOut();
+
+                await fetch('/sessions', {
+                  method: 'DELETE',
+                  headers: {
+                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
+                    'Content-Type': 'application/json'
+                  },
+                  credentials: 'same-origin'
+                });
+
+                window.location.href = '/';
+              } catch (error) {
+                console.error('Error during logout:', error);
+                alert('An error occurred while logging out. Please try again.');
+              }
+            });
+          }
+        }).catch(error => {
+          console.error('Error initializing Clerk:', error);
+        });
+      }
+
+      document.addEventListener('DOMContentLoaded', initializeClerk);
+      document.addEventListener('turbo:load', initializeClerk);
+    </script>
   </body>
 </html>

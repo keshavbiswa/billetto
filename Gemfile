@@ -71,3 +71,5 @@ gem "httparty", "~> 0.22.0"
 gem "clerk-sdk-ruby", "~> 3.3", require: "clerk"
 
 gem "dotenv-rails", "~> 3.1"
+
+gem "tailwindcss-rails", "~> 3.0"

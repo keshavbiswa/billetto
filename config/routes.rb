@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-  root "events#index"
   mount RailsEventStore::Browser => "/res" if Rails.env.development?
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -13,4 +12,8 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "posts#index"
+  #
+  root "events#index"
+
+  resources :sessions, only: [ :index, :create, :destroy ]
 end
