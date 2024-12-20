@@ -49,11 +49,14 @@ group :development, :test do
 
   # Omakase Ruby styling [https://github.com/rails/rubocop-rails-omakase/]
   gem "rubocop-rails-omakase", require: false
+  gem "rspec", "~> 3.12"
+  gem "rspec-rails", "~> 6.0"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
+  gem "webmock"
 end
 
 group :test do
@@ -62,3 +65,5 @@ group :test do
   gem "selenium-webdriver"
 end
 gem "rails_event_store", "~> 2.15.0"
+
+gem "httparty", "~> 0.22.0"
