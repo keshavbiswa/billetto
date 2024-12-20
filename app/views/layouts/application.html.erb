@@ -23,6 +23,17 @@
   </head>
 
   <body>
+    <nav class="navbar">
+      <% if current_user.present? %>
+        <!-- Clerk UserButton -->
+        <div id="user-button"></div>
+      <% else %>
+        <!-- Clerk Sign up and Sign in links -->
+        <button onclick="Clerk.openSignIn()">Sign in</button>
+        <button onclick="Clerk.openSignUp()">Sign up</button>
+      <% end %>
+    </nav>
     <%= yield %>
+    <%= clerk_script_tag %>
   </body>
 </html>

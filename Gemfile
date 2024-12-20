@@ -67,3 +67,7 @@ end
 gem "rails_event_store", "~> 2.15.0"
 
 gem "httparty", "~> 0.22.0"
+
+gem "clerk-sdk-ruby", "~> 3.3", require: "clerk"
+
+gem "dotenv-rails", "~> 3.1"

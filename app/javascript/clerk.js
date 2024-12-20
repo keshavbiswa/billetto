@@ -1,12 +1,8 @@
-// Configure your import map in config/importmap.rb. Read more: https://github.com/rails/importmap-rails
-import "@hotwired/turbo-rails"
-import "controllers"
-
-
 window.startClerk = async () => {
   const Clerk = window.Clerk;
 
   try {
+    // Load Clerk environment & session if available
     await Clerk.load();
 
     function mountUserButton() {
