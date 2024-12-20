@@ -67,18 +67,7 @@
     <script>
       function initializeClerk() {
         Clerk.load().then(() => {
-          Clerk.mountUserButton('#user-button', {
-            appearance: {
-              elements: {
-                userButtonAvatarBox: {
-                  borderRadius: '9999px',
-                },
-                userButtonPopoverFooter: {
-                  display: 'none',
-                },
-              },
-            },
-          });
+          Clerk.mountUserButton('#user-button');
 
           const logoutButton = document.getElementById('logout-button');
           if (logoutButton) {

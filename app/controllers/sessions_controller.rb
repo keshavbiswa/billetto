@@ -27,10 +27,6 @@ class SessionsController < ApplicationController
 
     session[:user_id] = nil
 
-    respond_to do |format|
-      format.html { redirect_to sessions_path, notice: "Successfully logged out." }
-      format.turbo_stream { render turbo_stream: turbo_stream.redirect_to(sessions_path) }
-      format.json { head :no_content }
-    end
+    redirect_to root_path
   end
 end
