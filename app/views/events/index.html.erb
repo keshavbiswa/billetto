@@ -1,0 +1,14 @@
+<h1>Upcoming Events</h1>
+
+<ul>
+<% @events.each do |event| %>
+  <li>
+    <h2><%= event.title %></h2>
+    <p>Date: <%= event.start_date.strftime("%B %d, %Y") %></p>
+    <% if event.image_link.present? %>
+      <img src="<%= event.image_link %>" alt="<%= event.title %>" style="max-width: 200px;">
+    <% end %>
+    <p><%= event.description %></p>
+  </li>
+<% end %>
+</ul>
