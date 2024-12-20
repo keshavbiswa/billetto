@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2024_12_20_133126) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_20_133127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -36,6 +36,22 @@ ActiveRecord::Schema[8.0].define(version: 2024_12_20_133126) do
     t.index ["event_id"], name: "index_event_store_events_in_streams_on_event_id"
     t.index ["stream", "event_id"], name: "index_event_store_events_in_streams_on_stream_and_event_id", unique: true
     t.index ["stream", "position"], name: "index_event_store_events_in_streams_on_stream_and_position", unique: true
+  end
+
+  create_table "events", force: :cascade do |t|
+    t.string "object"
+    t.string "kind"
+    t.string "state"
+    t.string "title", null: false
+    t.text "description"
+    t.string "url"
+    t.string "image_link"
+    t.boolean "availablity"
+    t.string "billetto_id", null: false
+    t.datetime "start_date"
+    t.datetime "end_date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_foreign_key "event_store_events_in_streams", "event_store_events", column: "event_id", primary_key: "event_id"
