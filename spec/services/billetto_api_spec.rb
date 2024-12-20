@@ -15,7 +15,7 @@ RSpec.describe BillettoAPI do
 
     context "when request is successful" do
       before do
-        stub_request(:get, "#{base_uri}/organiser/events")
+        stub_request(:get, "#{base_uri}/public/events")
           .with(query: { page: '1', limit: '20' }, headers: { 'Accept' => 'application/json', 'Api-Keypair' => api_keypair })
           .to_return(status: 200, body: sample_response.to_json, headers: { 'Content-Type' => 'application/json' })
       end
@@ -25,7 +25,7 @@ RSpec.describe BillettoAPI do
 
     context "when request is not successful" do
       before do
-        stub_request(:get, "#{base_uri}/organiser/events")
+        stub_request(:get, "#{base_uri}/public/events")
           .with(query: { page: '1', limit: '20' }, headers: { 'Accept' => 'application/json', 'Api-Keypair' => api_keypair })
           .to_return(status: 401, body: sample_error_response.to_json, headers: { 'Content-Type' => 'application/json' })
       end

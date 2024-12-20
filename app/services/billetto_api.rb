@@ -9,7 +9,7 @@ class BillettoAPI
   end
 
   def get_public_events(page: 1, limit: 20)
-    response = self.class.get("/organiser/events", query: { page: page, limit: limit }, headers: headers)
+    response = self.class.get("/public/events", query: { page: page, limit: limit }, headers: headers)
     handle_response(response)
   end
 
