@@ -22,8 +22,7 @@ Rails.configuration.to_prepare do
   end
 
   # Register command handlers below
-  # Rails.configuration.command_bus.tap do |bus|
-  #   bus.register(PrintInvoice, Invoicing::OnPrint.new)
-  #   bus.register(SubmitOrder, ->(cmd) { Ordering::OnSubmitOrder.new.call(cmd) })
-  # end
+  Rails.configuration.command_bus.tap do |bus|
+    bus.register(Voting::CreateVoteCommand, Voting::VoteCommandHandler.new)
+  end
 end

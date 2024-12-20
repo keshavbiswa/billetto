@@ -16,4 +16,7 @@ Rails.application.routes.draw do
   root "events#index"
 
   resources :sessions, only: [ :index, :create, :destroy ]
+  resources :events, only: :index do
+    resources :votes, only: :create
+  end
 end

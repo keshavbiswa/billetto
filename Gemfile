@@ -63,6 +63,7 @@ group :test do
   # Use system testing [https://guides.rubyonrails.org/testing.html#system-testing]
   gem "capybara"
   gem "selenium-webdriver"
+  gem "ruby_event_store-rspec"
 end
 gem "rails_event_store", "~> 2.15.0"
 
@@ -73,3 +74,5 @@ gem "clerk-sdk-ruby", "~> 3.3", require: "clerk"
 gem "dotenv-rails", "~> 3.1"
 
 gem "tailwindcss-rails", "~> 3.0"
+
+gem "counter_culture", "~> 3.8"

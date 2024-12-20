@@ -7,8 +7,6 @@ class ApplicationController < ActionController::Base
 
   helper_method :current_user
 
-  before_action :authenticate_user!
-
   def current_user
     @current_user ||= clerk_user
   end
@@ -17,7 +15,7 @@ class ApplicationController < ActionController::Base
 
   def authenticate_user!
     unless current_user
-      redirect_to sessions_path, turbo: false
+      redirect_to root_path, turbo: false
     end
   end
 end
