@@ -34,6 +34,7 @@
             <div id="user-button"></div>
             <button
               id="logout-button"
+              onclick="Clerk.signOut()"
               class="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600 transition duration-300"
               aria-label="Log out"
             >
@@ -41,7 +42,7 @@
             </button>
           <% else %>
             <button
-              onclick="Clerk.openSignIn()"
+              onClick="Clerk.openSignIn()"
               class="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition duration-300"
               aria-label="Sign in"
             >
@@ -58,47 +59,8 @@
         </div>
       </div>
     </nav>
-
+    <%= clerk_script_tag %>
     <%= yield %>
 
-
-    <%= clerk_script_tag %>
-
-    <script>
-      function initializeClerk() {
-        Clerk.load().then(() => {
-          Clerk.mountUserButton('#user-button');
-
-          const logoutButton = document.getElementById('logout-button');
-          if (logoutButton) {
-            logoutButton.addEventListener('click', async () => {
-              console.log("HELLO");
-              try {
-                await Clerk.signOut();
-
-                await fetch('/sessions', {
-                  method: 'DELETE',
-                  headers: {
-                    'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').getAttribute('content'),
-                    'Content-Type': 'application/json'
-                  },
-                  credentials: 'same-origin'
-                });
-
-                window.location.href = '/';
-              } catch (error) {
-                console.error('Error during logout:', error);
-                alert('An error occurred while logging out. Please try again.');
-              }
-            });
-          }
-        }).catch(error => {
-          console.error('Error initializing Clerk:', error);
-        });
-      }
-
-      document.addEventListener('DOMContentLoaded', initializeClerk);
-      document.addEventListener('turbo:load', initializeClerk);
-    </script>
   </body>
 </html>

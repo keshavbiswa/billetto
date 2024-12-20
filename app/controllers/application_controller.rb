@@ -1,4 +1,5 @@
 require "clerk/authenticatable"
+
 class ApplicationController < ActionController::Base
   include ApplicationHelper
   include Clerk::Authenticatable

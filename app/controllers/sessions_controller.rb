@@ -19,14 +19,4 @@ class SessionsController < ApplicationController
       render json: { status: "error", message: e.message }, status: :unauthorized
     end
   end
-
-  def destroy
-    if current_user
-        Clerk.sign_out(current_user.clerk_session_id)
-    end
-
-    session[:user_id] = nil
-
-    redirect_to root_path
-  end
 end

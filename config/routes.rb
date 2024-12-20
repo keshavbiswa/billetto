@@ -13,9 +13,12 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   # root "posts#index"
   #
+  #
+  # get "/sign-in", to: "sessions#create", as: :sign_in
+  # get "/sign-up", to: "registrations#index", as: :sign_up
   root "events#index"
 
-  resources :sessions, only: [ :index, :create, :destroy ]
+  resources :sessions, only: [ :index, :create ]
   resources :events, only: :index do
     resources :votes, only: :create
   end

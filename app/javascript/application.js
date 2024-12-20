@@ -2,11 +2,12 @@
 import "@hotwired/turbo-rails"
 import "controllers"
 
-
+// Start Clerk as soon as ClerkJS is loaded
 window.startClerk = async () => {
   const Clerk = window.Clerk;
 
   try {
+    // Load Clerk environment & session if available
     await Clerk.load();
 
     function mountUserButton() {
@@ -23,3 +24,5 @@ window.startClerk = async () => {
     console.error('Clerk: ', err);
   }
 }
+
+
